@@ -11,10 +11,34 @@ describe('Inventory Management', () => {
         });
     });
 
-    it.only('should allow adding items to the cart dynamically', () => {
+    it('should allow adding items to the cart dynamically', () => {
         productsData.forEach((item, index) => {
             ProductsPage.addToCart(item.name);
             ProductsPage.cartBadge.should('contain', (index + 1).toString());
         });
+    });
+
+    it('should allow removing an item from the inventory page', () => {
+        productsData.forEach((item) => {
+            ProductsPage.addToCart(item.name);
+        });
+        ProductsPage.cartBadge.should('contain', productsData.length);
+
+        const itemToRemove = productsData[0];
+        ProductsPage.removeFromCart(itemToRemove.name);
+        ProductsPage.cartBadge.should('contain', productsData.length - 1);
+
+        ProductsPage.productsItems.contains(itemToRemove.name)
+            .parents('.inventory_item')
+            .find('.btn_primary')
+            .should('exist');
+
+        if (productsData.length > 1) {
+            const itemRemaining = productsData[1];
+            ProductsPage.productsItems.contains(itemRemaining.name)
+                .parents('.inventory_item')
+                .find('.btn_secondary')
+                .should('exist');
+        }
     });
 });
