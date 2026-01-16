@@ -1,6 +1,6 @@
 import ProductsPage from '../pages/productsPage';
 
-describe('Inventory Management', () => {
+describe('Products Shopping Page Management', () => {
     let productsData;
 
     beforeEach(() => {
@@ -18,7 +18,7 @@ describe('Inventory Management', () => {
         });
     });
 
-    it('should allow removing an item from the inventory page', () => {
+    it('should allow removing an item from the shopping cart', () => {
         productsData.forEach((item) => {
             ProductsPage.addToCart(item.name);
         });
